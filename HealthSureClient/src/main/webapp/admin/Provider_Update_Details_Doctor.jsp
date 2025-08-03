@@ -1,5 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<!-- 
+  JSP File: Update Doctor Details Page
+  Purpose: This page allows the admin to update the details of a doctor. It includes form fields to edit doctor-related information such as name, provider ID, qualifications, specialization, etc. After updating, a success or error message is displayed based on the outcome.
+  
+  Components:
+  - Form: Contains input fields to update doctor details like name, provider ID, qualification, etc.
+  - Update Button: A button to trigger the update action and save the modified doctor details.
+  - Success Message: Displays a confirmation message when the doctor details are successfully updated.
+  - Error Message: Displays an error message if there are issues updating the doctor details.
+  - Back to Homepage Button: A button to navigate back to the admin dashboard.
+  - Footer: Displays copyright information at the bottom of the page.
+  
+  Design:
+  - The page is designed with a light background (#E0F7FA) and a clean, modern layout.
+  - The form is contained within a white box with rounded corners and a subtle shadow for a sleek look.
+  - Buttons and form inputs have consistent styling, with hover and focus effects to enhance interactivity.
+  - The success and error messages are styled to be prominent with color coding (green for success and red for error).
+  - A footer section is included at the bottom of the page with copyright information.
+
+  Additional Notes:
+  - The update button triggers the `updateDoctorDetails` method in the `doctorController` bean to process the update.
+  - Success and error messages are conditionally rendered based on the backend logic.
+-->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
@@ -178,17 +201,24 @@ input[type="text"] {
 
             <!-- Error message (rendered only if error message exists) -->
             <h:outputText value="#{doctorController.errorMessage}" rendered="#{not empty doctorController.errorMessage}" styleClass="error" />
-			 
+			 </h:form>
 
-
+				<h:form>
+				<!-- Back Button -->				
+				<h:commandButton value="Back"
+					action="#{doctorController.backtoupdatedoctorsearch}"
+					styleClass="action-button" style="margin-top: 20px;" />
+					
 				<!-- Back to Homepage Button -->
 				<h:commandButton value="Back to Homepage"
 					action="#{doctorController.backtoadmindashboard}"
 					styleClass="action-button" style="margin-top: 20px;" />
+
+				</h:form>
 				<div class="footer">
 					<p>&copy; 2025 Infinite Computer Solution. All rights reserved.</p>
 				</div>
-			</h:form>
+			
 
 		</div>
 	</f:view>

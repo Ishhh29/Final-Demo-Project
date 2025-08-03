@@ -329,6 +329,9 @@ public class DoctorController {
 		searchCriteriaOptions.add(new SelectItem("doctorName", "Doctor Name"));
 		searchCriteriaOptions.add(new SelectItem("specialization", "Specialization"));
 		searchCriteriaOptions.add(new SelectItem("licenseNo", "License Number"));
+		
+		resetSearchFields();  // Reset fields when the controller is initialized
+
 
 	}
 	
@@ -471,6 +474,8 @@ public class DoctorController {
 		}
 	}
 	
+	
+	// Back Buttons
 	/**
 	 * Redirects the user to the admin dashboard.
 	 * 
@@ -481,14 +486,40 @@ public class DoctorController {
 	 * @return A string representing the view name for the redirection. In this case, "Admin_Dashboard_Providers".
 	 */
 	public String backtoadmindashboard() {
-		// Optionally, you can do any cleanup or set data here before redirecting
-		return "Admin_Dashboard_Providers"; // Assuming the dashboard.xhtml page is mapped to 'dashboard'
+		resetSearchFields();
+		resetFields();
+		return "Admin_Dashboard_Providers"; 
 	}
+
+	public String backtoupdatemenu() {
+	    return "Provider_Update_Details_Menu";
+	}
+	
+	public String backtosearchmenu() {
+		return "Provider_Search_And_Inquiry";
+	}
+	public String backtoupdateprovidersearch() {
+		resetFields();
+		return "Provider_Update_Search_Provider";
+	}
+	public String backtoupdatedoctorsearch() {
+		resetFields();
+		return "Provider_Update_Search_Doctor";
+	}
+	
+
 	
 
 	// Methods For Provider Update Details -
 	
-	
+	// Reset method for clearing form fields and error messages
+	public void resetFields() {
+	    doctor.setDoctorId(null);  // Reset the doctor ID input field
+	    provider.setProviderId(null);
+	    errorMessage = null;  // Clear any previous error message
+	    // You can add other fields here if necessary
+	}
+
 	/**
 	 * Displays the details of a doctor by fetching the doctor information using the doctor ID.
 	 * 
@@ -499,10 +530,24 @@ public class DoctorController {
 	 * @return A string representing the navigation outcome. Returns "Provider_Update_Details_Doctor" if successful, or null if doctor is not found.
 	 */
 	public String showDoctorDetails() {
+		
+		// Initialize doctor if it's null (for safety)
+	    if (doctor == null) {
+	        doctor = new Doctors();  // Ensure the doctor object is not null
+	    }
+		
 		logger.info("Doctor ID reached showDoctorDetails() " + doctor.getDoctorId());
 		System.out.println("Doctor ID reached showDoctorDetails() " + doctor.getDoctorId()); // Debugging line
 		errorMessage = null;
-
+		
+		
+	    
+		// Step 1: Validate the doctorId format using a regex
+	    if (!isValidDoctorId(doctor.getDoctorId())) {
+	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+	                "Invalid doctor ID. Please enter a valid ID starting with 'D' followed by 3 digits.", ""));
+	        return null; // Return to the same page to show the error
+	    }
 		try {
 			System.out.println("Doctor Id  : " + doctor.getDoctorId());
 			logger.info("Doctor Id  : " + doctor.getDoctorId());
@@ -512,17 +557,17 @@ public class DoctorController {
 				return "Provider_Update_Details_Doctor"; // Navigate to update page (use your JSF navigation rule here)
 
 			} else {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"Doctor not found with ID: " + doctor.getDoctorId(), ""));
-				errorMessage = ErrorMessage.DOCTOR_NOT_FOUND_BY_ID;
-				errorMessage = "Doctor not found with ID: " + doctor.getDoctorId();
+
+				errorMessage = ErrorMessage.DOCTOR_NOT_FOUND_BY_ID ;
+	            // Initialize doctor object to prevent null access in the JSF page
+	            doctor = new Doctors();  // Initialize doctor object (or reset the doctorId field)
 				return null;
 			}
 		} catch (Exception e) {
-			logger.error("Error occurred while fetching doctor details: " + e.getMessage());
-
+			logger.error("Error occurred while fetching doctor details: " + e.getMessage()); 
 			return "errorPage"; // Redirect to an error page in case of an exception
 		}
+		
 	}
 	
 	
@@ -536,10 +581,22 @@ public class DoctorController {
 	 * @return A string representing the navigation outcome. Returns "Provider_Update_Details_Provider" if successful, or null if provider is not found.
 	 */
 	public String showProviderDetails() {
+		
+		// Initialize provider if it's null (for safety)
+	    if (provider == null) {
+	        provider = new Provider();  // Ensure the provider object is not null
+	    }
+	    
 		System.out.println("Provider ID reached showProviderDetails() " + provider.getProviderId()); // Debugging line
 		logger.info("Provider ID reached showProviderDetails() " + provider.getProviderId());
 
 		errorMessage = null;
+		// Step 1: Validate the providerId format using a regex
+	    if (!isValidProviderId(provider.getProviderId())) {
+	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+	                "Invalid provider ID. Please enter a valid ID starting with 'P' followed by 3 digits.", ""));
+	        return null; // Return to the same page to show the error
+	    }
 
 		try {
 			System.out.println("Provider Id  : " + provider.getProviderId());
@@ -550,10 +607,9 @@ public class DoctorController {
 				return "Provider_Update_Details_Provider"; // Navigate to update page (use your JSF navigation rule
 															// here)
 			} else {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"Provider not found with ID: " + provider.getProviderId(), ""));
 				errorMessage = ErrorMessage.PROVIDER_NOT_FOUND;
-
+	            // Initialize provider object to prevent null access in the JSF page
+	            provider = new Provider();  // Initialize provider object 
 				return null;
 			}
 		} catch (Exception e) {
@@ -563,7 +619,26 @@ public class DoctorController {
 		}
 	}
 	
-	
+	/**
+	 * Validates the provider ID format (should start with 'P' followed by 3 digits).
+	 * 
+	 * @param providerId The provider ID to validate
+	 * @return true if valid, false otherwise
+	 */
+	private boolean isValidProviderId(String providerId) {
+	    // Regular expression for a provider ID that starts with 'P' followed by exactly 3 digits
+	    return providerId != null && providerId.matches("^P\\d{3}$");
+	}
+	/**
+	 * Validates the doctor ID format (should start with 'D' followed by 3 digits).
+	 * 
+	 * @param doctorId The doctor ID to validate
+	 * @return true if valid, false otherwise
+	 */
+	private boolean isValidDoctorId(String doctorId) {
+		// Regular expression for a doctor ID that starts with 'D' followed by exactly 3 digits
+		return doctorId != null && doctorId.matches("^D\\d{3}$");
+	}
 	/**
 	 * Updates the details of a doctor after validating the input fields.
 	 * 
@@ -958,10 +1033,20 @@ public class DoctorController {
 		return null; // No navigation needed, just update the view
 	}
 
+	
+	
 
 	// Provider Search and Inquiry
 
-
+	// Method to reset search fields
+    public void resetSearchFields() {
+        this.searchType = null;  // Reset search type
+        this.searchCriteria = null;  // Reset search criteria
+        this.searchInput = null;  // Clear search input
+        this.searchResults = Collections.emptyList();  // Clear search results
+        this.searchResultsP = Collections.emptyList();  // Clear provider results
+    }
+    
 	// Method to handle the search logic for Doctors
 	/**
 	 * Handles the search logic based on the selected search type (Doctor or Provider).
@@ -1005,6 +1090,12 @@ public class DoctorController {
 		return null; // Stay on the same page
 
 	}
+	
+	 // Method to reset the fields when navigating back to the search page
+    public String goToSearchPage() {
+        resetSearchFields();  // Reset fields before navigating
+        return "Provider_Search_And_Inquiry?faces-redirect=true";  // Navigate back to search page
+    }
 
 	// Search method for doctors based on dynamic search criteria
 	/**

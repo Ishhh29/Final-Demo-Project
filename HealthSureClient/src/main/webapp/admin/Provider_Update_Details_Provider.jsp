@@ -1,3 +1,29 @@
+<!-- 
+  JSP File: Update Provider Details Page
+  Purpose: This page allows the admin to update the details of a provider. The form allows for modifications to the provider's name, hospital name, telephone, email, city, and address. After submitting the form, a success or error message is displayed based on the outcome of the update.
+  
+  Components:
+  - Form: Contains fields to edit provider information such as name, hospital name, telephone, etc.
+  - Update Button: Submits the form and triggers the update functionality.
+  - Success Message: Displays when the provider details have been successfully updated.
+  - Error Message: Displays an error message if there was a problem during the update.
+  - Back to Homepage Button: A button to navigate back to the admin dashboard.
+  - Footer: Contains copyright information.
+  
+  Design:
+  - The page follows a clean, minimalistic design with a pastel background color (#E0F7FA).
+  - The form and other components are centered on the page and enclosed in a white container with rounded corners and a subtle shadow.
+  - Form fields have a light green background and rounded borders.
+  - Buttons have hover effects and smooth transitions for better user interaction.
+  - Success and error messages are prominently displayed in green and red, respectively.
+  - The footer provides copyright information.
+
+  Additional Notes:
+  - The form's action triggers the `updateProviderDetails` method from the `doctorController` bean.
+  - Success and error messages are conditionally rendered based on the backend logic.
+-->
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
@@ -94,20 +120,21 @@ input[type="text"] {
 .back-btn:hover {
 	background-color: #004D40;
 }
-    .action-button {
-        background-color: #00796B;
-        color: white;
-        padding: 10px 20px;
-        font-size: 14px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-    }
 
-    .action-button:hover {
-        background-color: #004D40;
-        transform: scale(1.05);
-    }
+.action-button {
+	background-color: #00796B;
+	color: white;
+	padding: 10px 20px;
+	font-size: 14px;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.action-button:hover {
+	background-color: #004D40;
+	transform: scale(1.05);
+}
 
 .footer {
 	font-size: 14px;
@@ -168,11 +195,17 @@ input[type="text"] {
 					rendered="#{not empty doctorController.errorMessage}"
 					styleClass="error" />
 
-				<!-- Back to homepage button -->
-				<!-- Back to Homepage Button -->
-				<h:commandButton value="Back to Homepage"
-					action="#{doctorController.backtoadmindashboard}"
-					styleClass="action-button" style="margin-top: 20px;" />
+				<h:form>
+					<!-- Back Button -->
+					<h:commandButton value="Back"
+						action="#{doctorController.backtoupdateprovidersearch}"
+						styleClass="action-button" style="margin-top: 20px;" />
+					<!-- Back to Homepage Button -->
+
+					<h:commandButton value="Back to Homepage"
+						action="#{doctorController.backtoadmindashboard}"
+						styleClass="action-button" style="margin-top: 20px;" />
+				</h:form>
 				<div class="footer">
 					<p>&copy; 2025 Infinite Computer Solution. All rights reserved.</p>
 				</div>

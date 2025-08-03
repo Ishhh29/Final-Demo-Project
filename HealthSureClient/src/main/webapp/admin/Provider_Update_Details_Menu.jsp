@@ -1,3 +1,25 @@
+<!-- 
+  JSP File: Provider Update Details Page
+  Purpose: This page allows the user to navigate to different sections for updating provider and doctor details. It provides menu options for updating providers and doctors, and a "Back to Homepage" button for returning to the admin dashboard.
+  
+  Components:
+  - Header Section: Displays the title of the page ("Provider Update Details").
+  - Menu Options: Two links for navigating to the "Update Providers" and "Update Doctors" pages.
+  - Back to Homepage Button: A button to redirect the user to the admin dashboard using the `doctorController.backtoadmindashboard` action.
+  - Footer: Displays copyright information at the bottom of the page.
+  
+  Design:
+  - The page has a clean, modern design with a soft green background (#f1f8f6) and a centered container that holds the content.
+  - The container is styled with a white background, rounded corners, and subtle shadow for a modern, elegant look.
+  - Menu buttons have a gradient effect and interactive hover and click effects for a more dynamic user experience.
+  - The "Back to Homepage" button is designed with a solid color and hover effects to indicate interactivity.
+  
+  Additional Notes:
+  - The action buttons are styled with hover effects and transitions to improve user experience.
+  - The page is fully responsive and will adjust to different screen sizes thanks to the use of flexible layout styles.
+-->
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
@@ -7,7 +29,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Provider Update Details</title>
+<title>Provider Update Details Menu</title>
 <style>
 body {
 	background-color: #f1f8f6; /* Soft pastel green background */

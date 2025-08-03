@@ -1,3 +1,32 @@
+<!-- 
+  JSP File: Provider and Doctor Search Page
+  Purpose: This page allows users to search for doctors or providers based on specific criteria. 
+  Users can select the category (Doctor or Provider), the criteria for search (e.g., ID, name), and enter a search value to find matching results. 
+  The page also handles errors gracefully, displaying error messages if necessary, and allows for an easy return to the admin dashboard.
+
+  Components:
+  - Category Dropdown: Allows the user to select whether they want to search for doctors or providers.
+  - Criteria Dropdown: Once a category is selected, users can choose the search criteria, like ID or name.
+  - Input Box: The user enters the search value based on the selected criteria.
+  - Search Button: Initiates the search process based on the selected category, criteria, and input.
+  - Error Message: Displays any error messages that may arise during the search process.
+  - Footer: Displays copyright information at the bottom of the page.
+
+  Design:
+  - The page is designed with a clean, user-friendly interface using pastel colors (background: #f1f8f6, buttons: #00796B).
+  - A centered container houses all the form elements and buttons, creating a neat, focused layout.
+  - The search fields are designed to be dynamic; depending on the category selected, different options appear for further refinement of the search.
+  - Each component is styled to provide a modern, minimalistic feel with rounded corners, subtle borders, and hover effects for interactive elements.
+  - Error messages are highlighted in red, ensuring the user can easily identify and fix issues.
+
+  Additional Notes:
+  - The page dynamically updates based on the user's selection of category and search criteria, driven by JSF managed beans (e.g., `doctorController.searchType`, `doctorController.searchCriteria`).
+  - Form submission is triggered when the category dropdown changes, allowing for a smooth user experience without page refresh.
+  - The search input and criteria options are linked to backend functionality to ensure relevant data is fetched and displayed.
+
+-->
+
+
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 
@@ -110,6 +139,20 @@ body {
 	color: red;
 	font-size: 0.9em;
 }
+.action-button {
+        background-color: #00796B;
+        color: white;
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .action-button:hover {
+        background-color: #004D40;
+        transform: scale(1.05);
+    }
 
  .footer {
             font-size: 14px;
@@ -156,12 +199,17 @@ body {
 				<!-- Step 4: Search Button (appears after input field) -->
 				<h:commandButton value="Search" action="#{doctorController.search}"
 					styleClass="search-button" />
-				
+						
 				</div>
 				<!-- Error Message (If any) -->
 				<h:messages globalOnly="true" styleClass="error-message" />
 				<div class="footer">
                 <p>&copy;   2025 Infinite Computer Solution. All rights reserved.</p>
+                <!-- Back to Homepage Button -->
+					<h:commandButton value="Back to Admin Dashboard"
+						action="#{doctorController.backtoadmindashboard}"
+						styleClass="action-button" style="margin-top: 20px;" />
+			
             </div>
 			</h:form>
 		</div>

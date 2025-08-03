@@ -1,6 +1,23 @@
+<!-- 
+  JSP File: Admin Dashboard - Providers
+  Purpose: This page serves as the admin dashboard interface where administrators can navigate
+  to different provider-related management tasks such as provider review, search, and update details.
+  
+  Components:
+  - Header: Displays the title of the dashboard.
+  - Menu Buttons: Links to pages that provide functionality for provider management (review, search, update).
+  - Footer: Displays a copyright notice at the bottom of the page.
+  
+  Design:
+  The page uses simple, clean styling with a flexible layout that centers the content.
+  Buttons are styled with gradient effects, hover, and active states for a modern UI experience.
+  
+-->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+
 
 <!DOCTYPE html>
 <html lang="en">

@@ -1,3 +1,31 @@
+<!-- 
+  JSP File: Search Results Page
+  Purpose: This page is designed to display the results of a search for doctors and providers. 
+  Administrators can view detailed information for each doctor and provider, including their ID, name, specialization, hospital, contact details, etc. 
+  The page provides options to navigate back to the admin dashboard and displays a footer with copyright information.
+
+  Components:
+  - Doctor Search Results Table: Displays a list of doctors with details such as doctor ID, provider ID, specialization, qualification, email, phone, and address.
+  - Provider Search Results Table: Displays a list of providers with details such as provider ID, provider name, hospital name, city, email, status, and phone number.
+  - No Results Message: Displays a message when no results are found for doctors or providers.
+  - Back to Admin Dashboard Button: A button to navigate back to the admin dashboard.
+  - Footer: Displays copyright information at the bottom of the page.
+
+  Design:
+  - The page features a clean, modern design with a pastel green theme (#E8F5E9 background, #00796B buttons) for a soft and professional look.
+  - The page uses `h:dataTable` to dynamically display the search results for doctors and providers, ensuring that the content is easily updated based on user input.
+  - Each table includes clickable column headers to display provider or doctor information, with alternating row colors for improved readability.
+  - Responsive design with flexbox layout ensures the page is visually appealing across different screen sizes.
+  - The action buttons are styled with hover effects for a smooth user experience.
+  - No results are shown if the search yields empty results, providing a clear user feedback mechanism.
+
+  Additional Notes:
+  - The page relies on managed beans such as `doctorController.searchResults` and `doctorController.searchResultsP` to fetch data dynamically from the backend.
+  - The `rendered` attribute ensures that certain tables or columns are displayed conditionally based on the search results or search type (e.g., doctor or provider).
+-->
+
+
+
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 
@@ -237,7 +265,11 @@ td {
 					
 						<h:outputText value="No results found." />
 					</h:panelGrid>
+				    <h:commandButton value="Back" 
+				    action="#{doctorController.goToSearchPage}"
+				     styleClass="action-button" style="margin-top: 20px;" />
 					
+
 					
 					<!-- Back to Homepage Button -->
 					<h:commandButton value="Back to Admin Dashboard"
