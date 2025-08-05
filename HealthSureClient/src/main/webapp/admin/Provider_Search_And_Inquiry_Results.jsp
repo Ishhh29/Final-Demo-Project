@@ -89,6 +89,8 @@ th {
 td {
 	background-color: #F1F8F6;
 	color: #333;
+		text-align:center;
+	
 }
 .action-button {
         background-color: #00796B;

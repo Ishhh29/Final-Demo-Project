@@ -5,59 +5,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Provider Home</title>
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Pharmacy Dashboard</title>
+    <link rel="stylesheet" href="/HealthSureClient/resources/css/pharmacy.css" />
 </head>
 
-<body class="bg-gray-100">
-
+<body>
 <f:view>
-    <!-- ✅ Include Fixed Navbar -->
-    <jsp:include page="/navbar/NavProvider.jsp" />
 
-    <!-- ✅ Main Content -->
-    <div class="max-w-4xl mx-auto pt-28 px-4 text-center mb-20">
+    <!-- 🧭 Navigation -->
+    <jsp:include page="/navbar/NavPharmacy.jsp" />
 
-        <!-- ✅ Welcome Message -->
-        <h1 class="text-4xl font-bold text-blue-700 mb-4">
-            Welcome, <h:outputText value="#{sessionScope.provider_name}" />
-        </h1>
+    <!-- 👋 Welcome Section -->
+    <div class="container">
+        <h2 class="heading">
+            Welcome, <h:outputText value="#{sessionScope.owner_name}" /> 🧪
+        </h2>
+        <p class="subheading">Manage your pharmacy operations below.</p>
+    </div>
 
-        <!-- ✅ Provider Details Section -->
-        <div class="bg-white p-6 rounded-xl shadow-md text-left text-gray-800 mb-8 space-y-1">
-            <p><strong>Provider ID:</strong> <h:outputText value="#{sessionScope.provider_id}" /></p>
-            <p><strong>Hospital Name:</strong> <h:outputText value="#{sessionScope.hospital_name}" /></p>
-            <p><strong>Email:</strong> <h:outputText value="#{sessionScope.email}" /></p>
-            <p><strong>Address:</strong> <h:outputText value="#{sessionScope.address}" /></p>
-            <p><strong>City:</strong> <h:outputText value="#{sessionScope.city}" /></p>
-            <p><strong>State:</strong> <h:outputText value="#{sessionScope.state}" /></p>
-            <p><strong>ZIP Code:</strong> <h:outputText value="#{sessionScope.zip_code}" /></p>
+    <!-- 🧠 Metrics Display -->
+    <div class="container metrics-wrapper">
+        <div class="metric-card">
+            <h3 class="metric-title purple">Medicines</h3>
+            <p class="metric-value">
+                <h:outputText value="#{pharmacyBean.medicineStockCount}" />
+            </p>
+            <p class="metric-label">Available medicines</p>
         </div>
 
-        <!-- ✅ Action Buttons -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-		    <h:form>
-		        <h:commandButton value="Manage Appointments" action="#{providerBean.manageAppointments}"
-		            styleClass="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105" />
-		    </h:form>
-		    <h:form>
-		        <h:commandButton value="View Medical History" action="#{providerBean.viewHistory}"
-		            styleClass="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105" />
-		    </h:form>
-		    <h:form>
-		        <h:commandButton value="Create Claim" action="#{providerBean.createClaim}"
-		            styleClass="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105" />
-		    </h:form>
-		    <h:form>
-		        <h:commandButton value="Search Payments" action="#{providerBean.searchPayments}"
-		            styleClass="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105" />
-		    </h:form>
-		</div>
-    </div>
-</f:view>
+        <div class="metric-card">
+            <h3 class="metric-title green">Equipments</h3>
+            <p class="metric-value">
+                <h:outputText value="#{pharmacyBean.equipmentStockCount}" />
+            </p>
+            <p class="metric-label">Available equipments</p>
+        </div>
 
-<!-- ✅ Footer -->
-<jsp:include page="/footer/Footer.jsp" />
+        <div class="metric-card">
+            <h3 class="metric-title teal">Payments Received</h3>
+            <p class="metric-value">
+                ₹<h:outputText value="#{pharmacyBean.totalPayments}" />
+            </p>
+            <p class="metric-label">Processed this month</p>
+        </div>
+    </div>
+
+    <!-- 💡 Quote Section -->
+    <div class="container quote-box">
+        <p>"Behind every prescription is a promise of care." — Unknown</p>
+    </div>
+
+    <!-- 🚀 Quick Actions -->
+    <div class="container footer-space">
+        <h3 class="actions-header">Quick Actions</h3>
+
+        <div class="actions-grid">
+            <h:form>
+                <h:commandButton value="👁️ View Medicine Stock"
+                    action="#{pharmacyBean.viewMedicineStock}"
+                    styleClass="action-button blue" />
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="➕ Add Medicine"
+                    action="#{pharmacyBean.addMedicine}"
+                    styleClass="action-button purple-btn" />
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="👁️ View Equipment Stock"
+                    action="#{pharmacyBean.viewEquipments}"
+                    styleClass="action-button green-btn" />
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="➕ Add Equipment"
+                    action="#{pharmacyBean.addEquipment}"
+                    styleClass="action-button pink-btn" />
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="📄 Previous Sale Details"
+                    action="#{pharmacyBean.viewSaleHistory}"
+                    styleClass="action-button indigo-btn" />
+            </h:form>
+        </div>
+    </div>
+
+    <!-- 📎 Footer -->
+    <jsp:include page="/footer/Footer.jsp" />
+
+</f:view>
 </body>
 </html>

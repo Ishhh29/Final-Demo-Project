@@ -1,63 +1,92 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsf/core" %>
 <%@ taglib prefix="h" uri="http://java.sun.com/jsf/html" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Provider Home</title>
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Recipient Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/HealthSureClient/resources/css/Recipient.css" />
 </head>
 
-<body class="bg-gray-100">
+<body>
 
 <f:view>
-    <!-- ✅ Include Fixed Navbar -->
-    <jsp:include page="/navbar/NavProvider.jsp" />
 
-    <!-- ✅ Main Content -->
-    <div class="max-w-4xl mx-auto pt-28 px-4 text-center mb-20">
+    <!-- 🌐 Navigation -->
+    <jsp:include page="/navbar/NavRecepient.jsp" />
 
-        <!-- ✅ Welcome Message -->
-        <h1 class="text-4xl font-bold text-blue-700 mb-4">
-            Welcome, <h:outputText value="#{sessionScope.provider_name}" />
-        </h1>
-
-        <!-- ✅ Provider Details Section -->
-        <div class="bg-white p-6 rounded-xl shadow-md text-left text-gray-800 mb-8 space-y-1">
-            <p><strong>Provider ID:</strong> <h:outputText value="#{sessionScope.provider_id}" /></p>
-            <p><strong>Hospital Name:</strong> <h:outputText value="#{sessionScope.hospital_name}" /></p>
-            <p><strong>Email:</strong> <h:outputText value="#{sessionScope.email}" /></p>
-            <p><strong>Address:</strong> <h:outputText value="#{sessionScope.address}" /></p>
-            <p><strong>City:</strong> <h:outputText value="#{sessionScope.city}" /></p>
-            <p><strong>State:</strong> <h:outputText value="#{sessionScope.state}" /></p>
-            <p><strong>ZIP Code:</strong> <h:outputText value="#{sessionScope.zip_code}" /></p>
-        </div>
-
-        <!-- ✅ Action Buttons -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-		    <h:form>
-		        <h:commandButton value="Manage Appointments" action="#{providerBean.manageAppointments}"
-		            styleClass="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105" />
-		    </h:form>
-		    <h:form>
-		        <h:commandButton value="View Medical History" action="#{providerBean.viewHistory}"
-		            styleClass="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105" />
-		    </h:form>
-		    <h:form>
-		        <h:commandButton value="Create Claim" action="#{providerBean.createClaim}"
-		            styleClass="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105" />
-		    </h:form>
-		    <h:form>
-		        <h:commandButton value="Search Payments" action="#{providerBean.searchPayments}"
-		            styleClass="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105" />
-		    </h:form>
-		</div>
+    <!-- 👋 Welcome Message -->
+    <div class="container">
+        <h2 class="section-header">
+            Welcome back, <h:outputText value="#" /> 🌿
+        </h2>
+        <p class="text-gray-600">Your personal health snapshot is just below.</p>
     </div>
-</f:view>
 
-<!-- ✅ Footer -->
-<jsp:include page="/footer/Footer.jsp" />
+    <!-- 📊 Recipient Overview -->
+    <div class="container">
+        <div class="dashboard-grid">
+            <div class="info-box">
+                <h3 class="info-title" style="color: #3b82f6;">Appointments</h3>
+                <p class="info-value"><h:outputText value="#" /></p>
+                <p class="info-subtext">Upcoming visits</p>
+            </div>
+
+            <div class="info-box">
+                <h3 class="info-title" style="color: #8b5cf6;">Prescriptions</h3>
+                <p class="info-value"><h:outputText value="#" /></p>
+                <p class="info-subtext">Your active medications</p>
+            </div>
+
+            <div class="info-box">
+                <h3 class="info-title" style="color: #10b981;">Insurance Plans</h3>
+                <p class="info-value"><h:outputText value="#" /></p>
+                <p class="info-subtext">Active coverage</p>
+            </div>
+
+            <div class="info-box">
+                <h3 class="info-title" style="color: #ef4444;">Test Reports</h3>
+                <p class="info-value"><h:outputText value="#" /></p>
+                <p class="info-subtext">Viewed recently</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 💡 Health Tip or Quote -->
+    <div class="container">
+        <div class="highlight-box">
+            <p>“Health is a state of body. Wellness is a state of being.” — J. Stanford</p>
+        </div>
+    </div>
+
+    <!-- 🚀 Quick Actions -->
+    <div class="container quick-access">
+        <h3 class="quick-access-title">Quick Access</h3>
+        <div class="quick-grid">
+            <h:form>
+                <h:commandButton value="📖 My Medical History" action="#"
+                    styleClass="action-btn btn-blue" />
+            </h:form>
+            <h:form>
+                <h:commandButton value="🧾 Claim Insurance" action="#"
+                    styleClass="action-btn btn-purple" />
+            </h:form>
+            <h:form>
+                <h:commandButton value="💊 My Prescriptions" action="#"
+                    styleClass="action-btn btn-teal" />
+            </h:form>
+            <h:form>
+                <h:commandButton value="📞 Contact Provider" action="#"
+                    styleClass="action-btn btn-pink" />
+            </h:form>
+        </div>
+    </div>
+
+    <!-- 📎 Footer -->
+    <jsp:include page="/footer/Footer.jsp" />
+
+</f:view>
 </body>
 </html>

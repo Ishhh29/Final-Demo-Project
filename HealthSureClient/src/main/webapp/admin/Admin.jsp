@@ -5,59 +5,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Provider Home</title>
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/HealthSureClient/resources/css/admin.css" />
 </head>
 
-<body class="bg-gray-100">
-
+<body class="admin-body">
 <f:view>
-    <!-- ✅ Include Fixed Navbar -->
-    <jsp:include page="/navbar/NavProvider.jsp" />
 
-    <!-- ✅ Main Content -->
-    <div class="max-w-4xl mx-auto pt-28 px-4 text-center mb-20">
+    <!-- 🌐 Navigation -->
+    <jsp:include page="/navbar/NavAdmin.jsp" />
 
-        <!-- ✅ Welcome Message -->
-        <h1 class="text-4xl font-bold text-blue-700 mb-4">
-            Welcome, <h:outputText value="#{sessionScope.provider_name}" />
-        </h1>
-
-        <!-- ✅ Provider Details Section -->
-        <div class="bg-white p-6 rounded-xl shadow-md text-left text-gray-800 mb-8 space-y-1">
-            <p><strong>Provider ID:</strong> <h:outputText value="#{sessionScope.provider_id}" /></p>
-            <p><strong>Hospital Name:</strong> <h:outputText value="#{sessionScope.hospital_name}" /></p>
-            <p><strong>Email:</strong> <h:outputText value="#{sessionScope.email}" /></p>
-            <p><strong>Address:</strong> <h:outputText value="#{sessionScope.address}" /></p>
-            <p><strong>City:</strong> <h:outputText value="#{sessionScope.city}" /></p>
-            <p><strong>State:</strong> <h:outputText value="#{sessionScope.state}" /></p>
-            <p><strong>ZIP Code:</strong> <h:outputText value="#{sessionScope.zip_code}" /></p>
-        </div>
-
-        <!-- ✅ Action Buttons -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-		    <h:form>
-		        <h:commandButton value="Manage Appointments" action="#{providerBean.manageAppointments}"
-		            styleClass="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105" />
-		    </h:form>
-		    <h:form>
-		        <h:commandButton value="View Medical History" action="#{providerBean.viewHistory}"
-		            styleClass="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105" />
-		    </h:form>
-		    <h:form>
-		        <h:commandButton value="Create Claim" action="#{providerBean.createClaim}"
-		            styleClass="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105" />
-		    </h:form>
-		    <h:form>
-		        <h:commandButton value="Search Payments" action="#{providerBean.searchPayments}"
-		            styleClass="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105" />
-		    </h:form>
-		</div>
+    <!-- 👋 Welcome -->
+    <div class="container">
+        <h2 class="page-heading">Welcome Admin 👋</h2>
+        <p class="page-subtext">Here are your core administrative controls.</p>
     </div>
-</f:view>
+    
+     <!-- 💡 Motivational Quote -->
+    <div class="container">
+        <div class="quote-box">
+            <p class="quote-text">
+                "Efficiency is doing things right; effectiveness is doing the right things." — Peter Drucker
+            </p>
+        </div>
+    </div>
+    
 
-<!-- ✅ Footer -->
-<jsp:include page="/footer/Footer.jsp" />
+    <!-- 🎛️ Control Panel -->
+    <div class="container">
+        <h3 class="section-heading">Admin Actions</h3>
+
+        <div class="grid-panel">
+            <h:form>
+                <h:commandButton value="✅ Provider Review" action="#{adminBean.reviewProviders}" styleClass="admin-btn green-btn" />
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="🔍 Provider Inquiry" action="#{adminBean.searchProviders}" styleClass="admin-btn blue-btn" />
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="💊 Pharmacy Review" action="#{adminBean.reviewPharmacies}" styleClass="admin-btn purple-btn" />
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="👥 Member Inquiry" action="#{adminBean.searchMembers}" styleClass="admin-btn teal-btn" />
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="✏️ Update Provider" action="#{adminBean.updateProvider}" styleClass="admin-btn yellow-btn" />
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="✏️ Update Member" action="#{adminBean.updateMember}" styleClass="admin-btn orange-btn" />
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="📃 Create Insurance Plan" action="#{adminBean.createInsurancePlan}" styleClass="admin-btn indigo-btn" />
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="🔎 Search Claims" action="#{adminBean.searchClaims}" styleClass="admin-btn cyan-btn" />
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="⚖️ Process Claims" action="#{adminBean.processClaims}" styleClass="admin-btn lime-btn" />
+            </h:form>
+
+            <h:form>
+                <h:commandButton value="💰 Pay Hospitals" action="#{adminBean.makePayments}" styleClass="admin-btn fuchsia-btn" />
+            </h:form>
+        </div>
+    </div>
+
+   
+    <!-- 📘 Footer -->
+    <jsp:include page="/footer/Footer.jsp" />
+
+</f:view>
 </body>
 </html>

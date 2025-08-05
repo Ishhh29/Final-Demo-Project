@@ -11,7 +11,6 @@
   Design:
   The page uses simple, clean styling with a flexible layout that centers the content.
   Buttons are styled with gradient effects, hover, and active states for a modern UI experience.
-  
 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -30,7 +29,7 @@
         body {
             background-color: #f1f8f6; /* Soft pastel green background */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Elegant font */
-            margin: 0;
+            margin-top: 60px;
             padding: 0;
             display: flex;
             justify-content: center;
@@ -54,6 +53,8 @@
             color: #00796b; /* Elegant darker green */
             letter-spacing: 1px;
         }
+        
+        
 
         .menu-button {
             display: inline-block;
@@ -93,12 +94,13 @@
 <body>
 <!-- Start of JSF view -->
 <f:view>
+	<jsp:include page="/navbar/NavAdmin.jsp" />
     <h:form>
         <div class="container">
             <!-- Header Section -->
             <div class="header">Admin Dashboard : Providers</div>
-
-            <!-- Menu Options -->
+            
+			<!-- Menu Options -->
             <a class="menu-button" href="Provider_Review_And_Approval.jsf">Provider Review & Approval</a>
             <a class="menu-button" href="Provider_Search_And_Inquiry.jsf">Provider Search & Inquiry</a>
             <a class="menu-button" href="Provider_Update_Details_Menu.jsf">Update Provider Details</a>
@@ -110,7 +112,7 @@
         
     </h:form>
 </f:view>
-<!-- End of JSF view -->
+<!-- End of JSF view --> 
 
 </body>
 </html>

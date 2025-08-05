@@ -71,14 +71,13 @@ public class DoctorController {
 
 	private List<SelectItem> searchTypeOptions;
 	private List<SelectItem> searchCriteriaOptions;
-	
 
 	// Sort field and direction
 	private String sortField;
 	private boolean ascending = true;
 	private String searchOption;
 	private String selectedSearchField;
-	
+
 	private boolean isValidated = false;
 
 	private List<Provider> providerList;
@@ -91,10 +90,9 @@ public class DoctorController {
 	private final int pageSize = 10; // Number of providers per page
 	private int totalPages; // Total number of pages for pagination
 	private static final int PAGE_SIZE = 10;
-	
+
 	private Map<String, Boolean> validatedProviders = new HashMap<>(); // Map to track validated providers by their
 	// providerId
-
 
 	public List<Provider> getSearchResultsP() {
 		return searchResultsP;
@@ -116,7 +114,6 @@ public class DoctorController {
 		this.searchCriteriaOptions = searchCriteriaOptions;
 	}
 
-
 	public String getSelectedRole() {
 		return selectedRole;
 	}
@@ -128,7 +125,6 @@ public class DoctorController {
 	public String getSearchType() {
 		return searchType;
 	}
-
 
 	public String getSearchCriteria() {
 		return searchCriteria;
@@ -250,7 +246,7 @@ public class DoctorController {
 		this.provider = provider;
 	}
 
-		// Getter and Setter for validatedProviders
+	// Getter and Setter for validatedProviders
 	public Map<String, Boolean> getValidatedProviders() {
 		return validatedProviders;
 	}
@@ -258,7 +254,6 @@ public class DoctorController {
 	public void setValidatedProviders(Map<String, Boolean> validatedProviders) {
 		this.validatedProviders = validatedProviders;
 	}
-
 
 	// Getter and setter for isValidated
 	public boolean getIsValidated() {
@@ -303,7 +298,7 @@ public class DoctorController {
 		this.totalPages = totalPages;
 	}
 	// Paginated providers methods
-	
+
 	public List<Provider> getPaginatedProviders() {
 		return paginatedProviders;
 	}
@@ -311,8 +306,6 @@ public class DoctorController {
 	public void setPaginatedProviders(List<Provider> paginatedProviders) {
 		this.paginatedProviders = paginatedProviders;
 	}
-
-
 
 	public DoctorController() {
 		doctorDao = new DoctorDaoImpl(); // Initialize the DAO
@@ -329,21 +322,23 @@ public class DoctorController {
 		searchCriteriaOptions.add(new SelectItem("doctorName", "Doctor Name"));
 		searchCriteriaOptions.add(new SelectItem("specialization", "Specialization"));
 		searchCriteriaOptions.add(new SelectItem("licenseNo", "License Number"));
-		
-		resetSearchFields();  // Reset fields when the controller is initialized
 
+		resetSearchFields(); // Reset fields when the controller is initialized
 
 	}
-	
+
 	/**
 	 * Sets the search type and updates the search criteria accordingly.
 	 * 
-	 * This method updates the `searchType` field and resets the `searchCriteria` based on the selected search type.
-	 * If the search type is "provider", the `searchCriteria` is set to "providerId". If the search type is anything else, 
-	 * it defaults to "doctorId". This helps in determining which field will be used for searching.
+	 * This method updates the `searchType` field and resets the `searchCriteria`
+	 * based on the selected search type. If the search type is "provider", the
+	 * `searchCriteria` is set to "providerId". If the search type is anything else,
+	 * it defaults to "doctorId". This helps in determining which field will be used
+	 * for searching.
 	 * 
-	 * @param searchType The type of search being performed, either "provider" or "doctor". 
-	 *                   Based on the value, the search criteria will be set accordingly.
+	 * @param searchType The type of search being performed, either "provider" or
+	 *                   "doctor". Based on the value, the search criteria will be
+	 *                   set accordingly.
 	 */
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
@@ -356,15 +351,18 @@ public class DoctorController {
 		}
 	}
 
-	
 	/**
-	 * Retrieves the available search criteria options based on the current search type.
+	 * Retrieves the available search criteria options based on the current search
+	 * type.
 	 * 
-	 * This method returns a list of selectable search criteria options (as `SelectItem` objects) based on the current 
-	 * `searchType`. If the search type is "doctor", the options will include Doctor ID, Doctor Name, Specialization, 
-	 * and License Number. If the search type is "provider", the options will include Provider ID and Provider Name.
+	 * This method returns a list of selectable search criteria options (as
+	 * `SelectItem` objects) based on the current `searchType`. If the search type
+	 * is "doctor", the options will include Doctor ID, Doctor Name, Specialization,
+	 * and License Number. If the search type is "provider", the options will
+	 * include Provider ID and Provider Name.
 	 * 
-	 * @return A list of `SelectItem` objects representing the search criteria options for the current search type.
+	 * @return A list of `SelectItem` objects representing the search criteria
+	 *         options for the current search type.
 	 */
 	public List<SelectItem> getSearchCriteriaOptions() {
 		List<SelectItem> options = new ArrayList<>();
@@ -381,16 +379,19 @@ public class DoctorController {
 
 		return options;
 	}
+
 	// Dynamic input label based on search criteria
 	/**
 	 * Returns the appropriate input label based on the current search criteria.
 	 * 
-	 * This method dynamically generates a label to prompt the user for input based on the current `searchCriteria` value.
-	 * For example, if the search criteria is "doctorId", the label returned will be "Enter Doctor ID:", and similarly for 
-	 * other criteria like "doctorName", "licenseNo", etc. If the search criteria doesn't match any known values, an empty 
-	 * string is returned.
+	 * This method dynamically generates a label to prompt the user for input based
+	 * on the current `searchCriteria` value. For example, if the search criteria is
+	 * "doctorId", the label returned will be "Enter Doctor ID:", and similarly for
+	 * other criteria like "doctorName", "licenseNo", etc. If the search criteria
+	 * doesn't match any known values, an empty string is returned.
 	 * 
-	 * @return A string representing the label for the input field based on the current search criteria.
+	 * @return A string representing the label for the input field based on the
+	 *         current search criteria.
 	 */
 	public String getInputLabel() {
 		switch (searchCriteria) {
@@ -409,15 +410,16 @@ public class DoctorController {
 		}
 	}
 
-/**
- * Fetches and returns the list of all doctors, and sorts the list.
- * 
- * This method retrieves the list of all doctors from the `doctorDao` using the `showDoctorDao` method. Once the list is 
- * retrieved, it is sorted using the `sortList` method before being returned. The sorting logic is assumed to be defined 
- * in the `sortList` method (which is not shown here).
- * 
- * @return A sorted list of `Doctors` retrieved from the data source.
- */
+	/**
+	 * Fetches and returns the list of all doctors, and sorts the list.
+	 * 
+	 * This method retrieves the list of all doctors from the `doctorDao` using the
+	 * `showDoctorDao` method. Once the list is retrieved, it is sorted using the
+	 * `sortList` method before being returned. The sorting logic is assumed to be
+	 * defined in the `sortList` method (which is not shown here).
+	 * 
+	 * @return A sorted list of `Doctors` retrieved from the data source.
+	 */
 	public List<Doctors> showDoctor() {
 		doctorsList = doctorDao.showDoctorDao();
 		sortList();
@@ -428,30 +430,34 @@ public class DoctorController {
 	 * Sort the list of doctors by the selected field and order.
 	 */
 	/**
-	 * Sorts the list of doctors based on the selected field and the current sort order.
+	 * Sorts the list of doctors based on the selected field and the current sort
+	 * order.
 	 * 
-	 * This method uses Java reflection to dynamically access the specified field (based on `sortField`) of the `Doctors` class
-	 * and compares its values to sort the `doctorsList`. The sorting order is determined by the `ascending` flag—if true, 
-	 * the list is sorted in ascending order; otherwise, it's sorted in descending order. If the field is not found or an error
-	 * occurs, the method returns without modifying the list.
+	 * 
+	 * This method uses Java reflection to dynamically access the specified field
+	 * (based on `sortField`) of the `Doctors` class and compares its values to sort
+	 * the `doctorsList`. The sorting order is determined by the `ascending` flag—if
+	 * true, the list is sorted in ascending order; otherwise, it's sorted in
+	 * descending order. If the field is not found or an error occurs, the method
+	 * returns without modifying the list.
 	 */
-	private void sortList() {
-
-		if (sortField == null || doctorsList == null)
-			return;
-
-		Collections.sort(doctorsList, (e1, e2) -> {
-			try {
-				Field f = Doctors.class.getDeclaredField(sortField);
-				f.setAccessible(true);
-				Comparable v1 = (Comparable) f.get(e1);
-				Comparable v2 = (Comparable) f.get(e2);
-				return ascending ? v1.compareTo(v2) : v2.compareTo(v1);
-			} catch (Exception ex) {
-				return 0;
-			}
-		});
-	}
+//	private void sortList() {
+//
+//		if (sortField == null || doctorsList == null)
+//			return;
+//
+//		Collections.sort(doctorsList, (e1, e2) -> {
+//			try {
+//				Field f = Doctors.class.getDeclaredField(sortField);
+//				f.setAccessible(true);
+//				Comparable v1 = (Comparable) f.get(e1);
+//				Comparable v2 = (Comparable) f.get(e2);
+//				return ascending ? v1.compareTo(v2) : v2.compareTo(v1);
+//			} catch (Exception ex) {
+//				return 0;
+//			}
+//		});
+//	}
 
 	/**
 	 * Sort the list of doctors by the selected field and order.
@@ -459,11 +465,13 @@ public class DoctorController {
 	/**
 	 * Sets the sorting field and toggles the sorting order.
 	 * 
-	 * This method is used to specify which field to sort by. If the selected field is already the current sort field, 
-	 * the method will toggle the sort direction between ascending and descending. If the selected field is different, 
-	 * it will set the new field to sort by and default the sort order to ascending.
+	 * This method is used to specify which field to sort by. If the selected field
+	 * is already the current sort field, the method will toggle the sort direction
+	 * between ascending and descending. If the selected field is different, it will
+	 * set the new field to sort by and default the sort order to ascending.
 	 * 
-	 * @param field The name of the field to sort by (e.g., "doctorName", "specialization").
+	 * @param field The name of the field to sort by (e.g., "doctorName",
+	 *              "specialization").
 	 */
 	public void sortBy(String field) {
 		if (field.equals(sortField)) {
@@ -473,81 +481,83 @@ public class DoctorController {
 			ascending = true;
 		}
 	}
-	
-	
+
 	// Back Buttons
 	/**
 	 * Redirects the user to the admin dashboard.
 	 * 
-	 * This method is used to navigate the user back to the admin dashboard page. It can optionally include any cleanup
-	 * or data processing before performing the redirection. By default, it redirects to the "Admin_Dashboard_Providers" view,
-	 * which is assumed to be mapped to the `dashboard.xhtml` page.
+	 * This method is used to navigate the user back to the admin dashboard page. It
+	 * can optionally include any cleanup or data processing before performing the
+	 * redirection. By default, it redirects to the "Admin_Dashboard_Providers"
+	 * view, which is assumed to be mapped to the `dashboard.xhtml` page.
 	 * 
-	 * @return A string representing the view name for the redirection. In this case, "Admin_Dashboard_Providers".
+	 * @return A string representing the view name for the redirection. In this
+	 *         case, "Admin_Dashboard_Providers".
 	 */
 	public String backtoadmindashboard() {
 		resetSearchFields();
 		resetFields();
-		return "Admin_Dashboard_Providers"; 
+		return "Admin_Dashboard_Providers";
 	}
 
 	public String backtoupdatemenu() {
-	    return "Provider_Update_Details_Menu";
+		return "Provider_Update_Details_Menu";
 	}
-	
+
 	public String backtosearchmenu() {
 		return "Provider_Search_And_Inquiry";
 	}
+
 	public String backtoupdateprovidersearch() {
 		resetFields();
 		return "Provider_Update_Search_Provider";
 	}
+
 	public String backtoupdatedoctorsearch() {
 		resetFields();
 		return "Provider_Update_Search_Doctor";
 	}
-	
-
-	
 
 	// Methods For Provider Update Details -
-	
 	// Reset method for clearing form fields and error messages
 	public void resetFields() {
-	    doctor.setDoctorId(null);  // Reset the doctor ID input field
-	    provider.setProviderId(null);
-	    errorMessage = null;  // Clear any previous error message
-	    // You can add other fields here if necessary
+		doctor.setDoctorId(null); // Reset the doctor ID input field
+		provider.setProviderId(null);
+		errorMessage = null; // Clear any previous error message
+		// You can add other fields here if necessary
 	}
 
 	/**
-	 * Displays the details of a doctor by fetching the doctor information using the doctor ID.
+	 * Displays the details of a doctor by fetching the doctor information using the
+	 * doctor ID.
 	 * 
-	 * This method is used to retrieve a doctor's details based on the provided doctor ID. If the doctor exists in 
-	 * the system, the user is navigated to the "Provider_Update_Details_Doctor" page to update the details. 
-	 * If the doctor is not found, an error message is shown, and the user remains on the current page.
+	 * This method is used to retrieve a doctor's details based on the provided
+	 * doctor ID. If the doctor exists in the system, the user is navigated to the
+	 * "Provider_Update_Details_Doctor" page to update the details. If the doctor is
+	 * not found, an error message is shown, and the user remains on the current
+	 * page.
 	 * 
-	 * @return A string representing the navigation outcome. Returns "Provider_Update_Details_Doctor" if successful, or null if doctor is not found.
+	 * @return A string representing the navigation outcome. Returns
+	 *         "Provider_Update_Details_Doctor" if successful, or null if doctor is
+	 *         not found.
 	 */
 	public String showDoctorDetails() {
-		
+
 		// Initialize doctor if it's null (for safety)
-	    if (doctor == null) {
-	        doctor = new Doctors();  // Ensure the doctor object is not null
-	    }
-		
+		if (doctor == null) {
+			doctor = new Doctors(); // Ensure the doctor object is not null
+		}
+
 		logger.info("Doctor ID reached showDoctorDetails() " + doctor.getDoctorId());
 		System.out.println("Doctor ID reached showDoctorDetails() " + doctor.getDoctorId()); // Debugging line
 		errorMessage = null;
-		
-		
-	    
+
 		// Step 1: Validate the doctorId format using a regex
-	    if (!isValidDoctorId(doctor.getDoctorId())) {
-	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-	                "Invalid doctor ID. Please enter a valid ID starting with 'D' followed by 3 digits.", ""));
-	        return null; // Return to the same page to show the error
-	    }
+		if (!isValidDoctorId(doctor.getDoctorId())) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Invalid doctor ID. Please enter a valid ID starting with 'D' followed by 3 digits.", ""));
+			return null; // Return to the same page to show the error
+		}
 		try {
 			System.out.println("Doctor Id  : " + doctor.getDoctorId());
 			logger.info("Doctor Id  : " + doctor.getDoctorId());
@@ -558,45 +568,48 @@ public class DoctorController {
 
 			} else {
 
-				errorMessage = ErrorMessage.DOCTOR_NOT_FOUND_BY_ID ;
-	            // Initialize doctor object to prevent null access in the JSF page
-	            doctor = new Doctors();  // Initialize doctor object (or reset the doctorId field)
+				errorMessage = ErrorMessage.DOCTOR_NOT_FOUND_BY_ID;
+				// Initialize doctor object to prevent null access in the JSF page
+				doctor = new Doctors(); // Initialize doctor object (or reset the doctorId field)
 				return null;
 			}
 		} catch (Exception e) {
-			logger.error("Error occurred while fetching doctor details: " + e.getMessage()); 
+			logger.error("Error occurred while fetching doctor details: " + e.getMessage());
 			return "errorPage"; // Redirect to an error page in case of an exception
 		}
-		
+
 	}
-	
-	
+
 	/**
-	 * Displays the details of a provider by fetching the provider information using the provider ID.
+	 * Displays the details of a provider by fetching the provider information using
+	 * the provider ID.
 	 * 
-	 * This method is used to retrieve a provider's details based on the provided provider ID. If the provider exists, 
-	 * the user is navigated to the "Provider_Update_Details_Provider" page to update the provider details. 
-	 * If the provider is not found, an error message is displayed.
+	 * This method is used to retrieve a provider's details based on the provided
+	 * provider ID. If the provider exists, the user is navigated to the
+	 * "Provider_Update_Details_Provider" page to update the provider details. If
+	 * the provider is not found, an error message is displayed.
 	 * 
-	 * @return A string representing the navigation outcome. Returns "Provider_Update_Details_Provider" if successful, or null if provider is not found.
+	 * @return A string representing the navigation outcome. Returns
+	 *         "Provider_Update_Details_Provider" if successful, or null if provider
+	 *         is not found.
 	 */
 	public String showProviderDetails() {
-		
+
 		// Initialize provider if it's null (for safety)
-	    if (provider == null) {
-	        provider = new Provider();  // Ensure the provider object is not null
-	    }
-	    
+		if (provider == null) {
+			provider = new Provider(); // Ensure the provider object is not null
+		}
+
 		System.out.println("Provider ID reached showProviderDetails() " + provider.getProviderId()); // Debugging line
 		logger.info("Provider ID reached showProviderDetails() " + provider.getProviderId());
 
 		errorMessage = null;
 		// Step 1: Validate the providerId format using a regex
-	    if (!isValidProviderId(provider.getProviderId())) {
-	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-	                "Invalid provider ID. Please enter a valid ID starting with 'P' followed by 3 digits.", ""));
-	        return null; // Return to the same page to show the error
-	    }
+		if (!isValidProviderId(provider.getProviderId())) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Invalid provider ID. Please enter a valid ID starting with 'P' followed by 3 digits.", ""));
+			return null; // Return to the same page to show the error
+		}
 
 		try {
 			System.out.println("Provider Id  : " + provider.getProviderId());
@@ -608,8 +621,8 @@ public class DoctorController {
 															// here)
 			} else {
 				errorMessage = ErrorMessage.PROVIDER_NOT_FOUND;
-	            // Initialize provider object to prevent null access in the JSF page
-	            provider = new Provider();  // Initialize provider object 
+				// Initialize provider object to prevent null access in the JSF page
+				provider = new Provider(); // Initialize provider object
 				return null;
 			}
 		} catch (Exception e) {
@@ -618,17 +631,20 @@ public class DoctorController {
 			return "errorPage"; // Redirect to an error page in case of an exception
 		}
 	}
-	
+
 	/**
-	 * Validates the provider ID format (should start with 'P' followed by 3 digits).
+	 * Validates the provider ID format (should start with 'P' followed by 3
+	 * digits).
 	 * 
 	 * @param providerId The provider ID to validate
 	 * @return true if valid, false otherwise
 	 */
 	private boolean isValidProviderId(String providerId) {
-	    // Regular expression for a provider ID that starts with 'P' followed by exactly 3 digits
-	    return providerId != null && providerId.matches("^P\\d{3}$");
+		// Regular expression for a provider ID that starts with 'P' followed by exactly
+		// 3 digits
+		return providerId != null && providerId.matches("^P\\d{3}$");
 	}
+
 	/**
 	 * Validates the doctor ID format (should start with 'D' followed by 3 digits).
 	 * 
@@ -636,24 +652,30 @@ public class DoctorController {
 	 * @return true if valid, false otherwise
 	 */
 	private boolean isValidDoctorId(String doctorId) {
-		// Regular expression for a doctor ID that starts with 'D' followed by exactly 3 digits
+		// Regular expression for a doctor ID that starts with 'D' followed by exactly 3
+		// digits
 		return doctorId != null && doctorId.matches("^D\\d{3}$");
 	}
+
 	/**
 	 * Updates the details of a doctor after validating the input fields.
 	 * 
-	 * This method validates the input fields for the doctor's details (e.g., name, email, license number, phone number). 
-	 * If the validation passes, the doctor's information is updated. If the update is successful, a success message is 
-	 * displayed, and the user is navigated to the "Provider_Update_Details_Doctors" page. In case of an error, an error message is shown.
+	 * This method validates the input fields for the doctor's details (e.g., name,
+	 * email, license number, phone number). If the validation passes, the doctor's
+	 * information is updated. If the update is successful, a success message is
+	 * displayed, and the user is navigated to the "Provider_Update_Details_Doctors"
+	 * page. In case of an error, an error message is shown.
 	 * 
-	 * @return A string representing the navigation outcome. Returns "Provider_Update_Details_Doctors" if the update is successful, or "errorPage" if the update fails.
+	 * @return A string representing the navigation outcome. Returns
+	 *         "Provider_Update_Details_Doctors" if the update is successful, or
+	 *         "errorPage" if the update fails.
 	 */
 	public String updateDoctorDetails() {
 		System.out.println("Doctor Object: " + doctor); // Print doctor object
 		System.out.println("Doctor ID: " + doctor.getDoctorId()); // Print doctor ID
 		logger.info("Doctor Object: " + doctor);
 		logger.info("Doctor ID: " + doctor.getDoctorId());
-		errorMessage=null;
+		errorMessage = null;
 		updateSuccess = false;
 		// Validate the doctor details before attempting update
 		if (!validateFields()) {
@@ -679,18 +701,19 @@ public class DoctorController {
 		}
 	}
 
-	
 	/**
 	 * Validates the input fields for the doctor's details.
 	 * 
-	 * This method checks the validity of various fields in the doctor's details, including the doctor's name, email, 
-	 * license number, and phone number. If any field is invalid, an error message is set, and the method returns false.
+	 * This method checks the validity of various fields in the doctor's details,
+	 * including the doctor's name, email, license number, and phone number. If any
+	 * field is invalid, an error message is set, and the method returns false.
 	 * 
-	 * @return A boolean value indicating whether the input fields are valid. Returns true if all fields are valid, and false otherwise.
+	 * @return A boolean value indicating whether the input fields are valid.
+	 *         Returns true if all fields are valid, and false otherwise.
 	 */
 	private boolean validateFields() {
 		boolean isValid = true;
-		errorMessage=null;
+		errorMessage = null;
 		// Name validation (at least 5 characters)
 		if (doctor.getDoctorName().length() < 5) {
 			errorMessage = ErrorMessage.INVALID_DOCTOR_NAME;
@@ -722,16 +745,20 @@ public class DoctorController {
 
 		return isValid;
 	}
-	
-	
+
 	/**
 	 * Updates the details of a provider after validating the input fields.
 	 * 
-	 * This method validates the input fields for the provider's details (e.g., provider name, email, telephone). 
-	 * If the validation passes, the provider's information is updated. If the update is successful, a success message is 
-	 * displayed, and the user is navigated to the "Provider_Update_Details_Provider" page. In case of an error, an error message is shown.
+	 * This method validates the input fields for the provider's details (e.g.,
+	 * provider name, email, telephone). If the validation passes, the provider's
+	 * information is updated. If the update is successful, a success message is
+	 * displayed, and the user is navigated to the
+	 * "Provider_Update_Details_Provider" page. In case of an error, an error
+	 * message is shown.
 	 * 
-	 * @return A string representing the navigation outcome. Returns "Provider_Update_Details_Provider" if the update is successful, or "errorPage" if the update fails.
+	 * @return A string representing the navigation outcome. Returns
+	 *         "Provider_Update_Details_Provider" if the update is successful, or
+	 *         "errorPage" if the update fails.
 	 */
 	public String updateProviderDetails() {
 		System.out.println("Provider Object: " + provider); // Print provider object
@@ -769,10 +796,12 @@ public class DoctorController {
 	/**
 	 * Validates the input fields for the provider's details.
 	 * 
-	 * This method checks the validity of various fields in the provider's details, including the provider's name, email, 
-	 * and telephone number. If any field is invalid, an error message is set, and the method returns false.
+	 * This method checks the validity of various fields in the provider's details,
+	 * including the provider's name, email, and telephone number. If any field is
+	 * invalid, an error message is set, and the method returns false.
 	 * 
-	 * @return A boolean value indicating whether the input fields are valid. Returns true if all fields are valid, and false otherwise.
+	 * @return A boolean value indicating whether the input fields are valid.
+	 *         Returns true if all fields are valid, and false otherwise.
 	 */
 	private boolean validateProviderFields() {
 		boolean isValid = true;
@@ -805,18 +834,86 @@ public class DoctorController {
 	}
 
 	// Methods For Provider Review And Approval
-	
-	
-	
-	
+
+	//========== RAVIKANT TURI =============
+	private void sortList() {
+		
+		System.out.println("sorList method is called: "+ascending + " sortedfiled : "+sortField);
+//		doctorsList= doctorDao.showProviders();
+		providerList.forEach(System.out::println);
+		if (sortField == null || providerList == null)
+			return;
+
+		Collections.sort(providerList, (e1, e2) -> {
+			try {
+				Field f = Provider.class.getDeclaredField(sortField);
+				f.setAccessible(true);
+				Comparable v1 = (Comparable) f.get(e1);
+				Comparable v2 = (Comparable) f.get(e2);
+				return ascending ? v1.compareTo(v2) : v2.compareTo(v1);
+			} catch (Exception ex) {
+				return 0;
+			}
+		});
+		providerList.forEach(System.out::println);
+
+	}
+
+	/**
+	 * Sorts the list of entities (e.g., pharmacies, insurance plans, etc.) in
+	 * ascending order based on the specified field. This method is typically used
+	 * to organize data in UI tables for better readability and user experience.
+	 *
+	 * @param field The name of the field by which the list should be sorted (e.g.,
+	 *              "name", "createdDate").
+	 */
+
+	public void sortByAsc(String field) {
+//		doctorsList.forEach(System.out::println);
+		if (!field.equals(sortField) || !ascending) {
+			// If this is a new field or the current order is not ascending, update sort
+			sortField = field;
+			ascending = true;
+			System.out.println("this i s acs");
+
+		}
+		updatePaginatedProviders();
+	}
+
+	/**
+	 * Sorts the list of entities (e.g., pharmacies, insurance plans, etc.) in
+	 * decending order based on the specified field. This method is typically used
+	 * to organize data in UI tables for better readability and user experience.
+	 *
+	 * @param field The name of the field by which the list should be sorted (e.g.,
+	 *              "name", "createdDate").
+	 */
+
+	public void sortByDesc(String field) {
+		System.out.println("this is desc1");
+
+		if (!field.equals(sortField) || ascending) {
+			// If this is a new field or the current order is not ascending, update sort
+			sortField = field;
+			ascending = false;
+			System.out.println("this is desc2");
+		}
+
+		updatePaginatedProviders();
+
+	}
+
 	// Method to validate provider data
 	/**
-	 * Validates the details of a provider and updates the provider's status accordingly.
+	 * Validates the details of a provider and updates the provider's status
+	 * accordingly.
 	 * 
-	 * This method checks the validity of the provider's name, email, telephone number, and zipcode. 
-	 * If all validations pass, the provider is approved, and an approval email is sent. If any validation fails, 
-	 * the provider is rejected, and a rejection email is sent along with the specific error messages. 
-	 * The provider's status is updated in the database to reflect the approval or rejection.
+	 * This method checks the validity of the provider's name, email, telephone
+	 * number, and zipcode. If all validations pass, the provider is approved, and
+	 * an approval email is sent. If any validation fails, the provider is rejected,
+	 * and a rejection email is sent along with the specific error messages. The
+	 * provider's status is updated in the database to reflect the approval or
+	 * rejection.
 	 * 
 	 * @param provider The provider whose details are to be validated.
 	 */
@@ -902,14 +999,16 @@ public class DoctorController {
 	/**
 	 * Fetches the list of all providers for display in the UI.
 	 * 
-	 * This method retrieves the list of providers from the database. If the list is not already cached, it loads the 
-	 * list by calling the `reviewProviderDetails()` method from the DAO.
+	 * This method retrieves the list of providers from the database. If the list is
+	 * not already cached, it loads the list by calling the
+	 * `reviewProviderDetails()` method from the DAO.
 	 * 
 	 * @return A list of providers.
 	 */
 	public List<Provider> getProviders() {
 		if (providerList == null) {
 			providerList = doctorDao.reviewProviderDetails();
+			sortList();
 		}
 		return providerList;
 	}
@@ -918,8 +1017,9 @@ public class DoctorController {
 	/**
 	 * Searches for a provider by their provider ID.
 	 * 
-	 * This method looks for a provider in the database using the provided provider ID. If the provider is found, 
-	 * a success message is returned. If the provider is not found, an error message is returned.
+	 * This method looks for a provider in the database using the provided provider
+	 * ID. If the provider is found, a success message is returned. If the provider
+	 * is not found, an error message is returned.
 	 * 
 	 * @param providerId The provider ID to search for.
 	 * @return A message indicating whether the provider was found or not.
@@ -936,11 +1036,13 @@ public class DoctorController {
 	/**
 	 * Updates the status of a selected provider.
 	 * 
-	 * This method updates the status of a provider, as selected by the user. If the provider and the status are valid, 
-	 * the update is performed in the database, and a success message is shown. If either the provider or the status 
-	 * is missing, an appropriate message is displayed.
+	 * This method updates the status of a provider, as selected by the user. If the
+	 * provider and the status are valid, the update is performed in the database,
+	 * and a success message is shown. If either the provider or the status is
+	 * missing, an appropriate message is displayed.
 	 * 
-	 * @return A message indicating whether the status was successfully updated or if a provider or status was not selected.
+	 * @return A message indicating whether the status was successfully updated or
+	 *         if a provider or status was not selected.
 	 */
 	public String updateProviderStatus() {
 		if (selectedProvider != null && providerStatus != null) {
@@ -951,13 +1053,13 @@ public class DoctorController {
 		return "Please select a provider and a status.";
 	}
 
-
 	// Loading providers and setting up pagination
 	/**
 	 * Loads the list of all providers and sets up pagination.
 	 * 
-	 * This method loads all the providers from the database and calculates the total number of pages based on the 
-	 * page size. It then updates the paginated list to display providers for the current page.
+	 * This method loads all the providers from the database and calculates the
+	 * total number of pages based on the page size. It then updates the paginated
+	 * list to display providers for the current page.
 	 */
 	private void loadProviders() {
 		providerList = doctorDao.reviewProviderDetails(); // Load all providers
@@ -969,11 +1071,13 @@ public class DoctorController {
 	/**
 	 * Updates the paginated list based on the current page and page size.
 	 * 
-	 * This method updates the list of providers that should be displayed on the current page. It calculates the 
-	 * start and end indices based on the current page and the page size, and then creates a sublist containing 
-	 * only the providers for that page.
+	 * This method updates the list of providers that should be displayed on the
+	 * current page. It calculates the start and end indices based on the current
+	 * page and the page size, and then creates a sublist containing only the
+	 * providers for that page.
 	 */
 	public void updatePaginatedProviders() {
+		sortList();
 		int start = page * pageSize;
 		int end = Math.min(start + pageSize, providerList.size());
 		paginatedProviders = providerList.subList(start, end);
@@ -983,8 +1087,9 @@ public class DoctorController {
 	/**
 	 * Navigates to the next page of providers.
 	 * 
-	 * This method increments the page number and updates the paginated list of providers. It checks whether there 
-	 * are more pages to display, and if so, it loads the providers for the next page.
+	 * This method increments the page number and updates the paginated list of
+	 * providers. It checks whether there are more pages to display, and if so, it
+	 * loads the providers for the next page.
 	 * 
 	 * @return null, as no navigation is required, just an update of the view.
 	 */
@@ -995,12 +1100,13 @@ public class DoctorController {
 		}
 		return null; // No navigation needed, just update the view
 	}
-	
+
 	/**
 	 * Loads the providers for the current page and updates the paginated list.
 	 * 
-	 * This method retrieves the list of all providers from the database and calculates which providers should be 
-	 * displayed on the current page based on the page size and the current page number.
+	 * This method retrieves the list of all providers from the database and
+	 * calculates which providers should be displayed on the current page based on
+	 * the page size and the current page number.
 	 */
 	private void loadProvidersForCurrentPage() {
 		try {
@@ -1020,8 +1126,9 @@ public class DoctorController {
 	/**
 	 * Navigates to the previous page of providers.
 	 * 
-	 * This method decrements the page number and updates the paginated list of providers. It checks whether 
-	 * there are previous pages to display, and if so, it loads the providers for the previous page.
+	 * This method decrements the page number and updates the paginated list of
+	 * providers. It checks whether there are previous pages to display, and if so,
+	 * it loads the providers for the previous page.
 	 * 
 	 * @return null, as no navigation is required, just an update of the view.
 	 */
@@ -1033,38 +1140,37 @@ public class DoctorController {
 		return null; // No navigation needed, just update the view
 	}
 
-	
-	
-
 	// Provider Search and Inquiry
-
 	// Method to reset search fields
-    public void resetSearchFields() {
-        this.searchType = null;  // Reset search type
-        this.searchCriteria = null;  // Reset search criteria
-        this.searchInput = null;  // Clear search input
-        this.searchResults = Collections.emptyList();  // Clear search results
-        this.searchResultsP = Collections.emptyList();  // Clear provider results
-    }
-    
+	public void resetSearchFields() {
+		this.searchType = null; // Reset search type
+		this.searchCriteria = null; // Reset search criteria
+		this.searchInput = null; // Clear search input
+		this.searchResults = Collections.emptyList(); // Clear search results
+		this.searchResultsP = Collections.emptyList(); // Clear provider results
+	}
+
 	// Method to handle the search logic for Doctors
 	/**
-	 * Handles the search logic based on the selected search type (Doctor or Provider).
+	 * Handles the search logic based on the selected search type (Doctor or
+	 * Provider).
 	 * 
-	 * This method checks the search type and calls the appropriate search function (searchDoctors or searchProviders) 
-	 * depending on whether the user is searching for a doctor or a provider. If search criteria or input is missing, 
-	 * it resets the search results. If valid results are found, it redirects to the results page. If no results are found, 
-	 * an error message is displayed, and the user remains on the same page.
+	 * This method checks the search type and calls the appropriate search function
+	 * (searchDoctors or searchProviders) depending on whether the user is searching
+	 * for a doctor or a provider. If search criteria or input is missing, it resets
+	 * the search results. If valid results are found, it redirects to the results
+	 * page. If no results are found, an error message is displayed, and the user
+	 * remains on the same page.
 	 * 
-	 * @return A string representing the navigation outcome (redirects to results page or stays on the same page).
+	 * @return A string representing the navigation outcome (redirects to results
+	 *         page or stays on the same page).
 	 */
 	public String search() {
-		
-	    // Clear search results on every search attempt
-	    searchResults = Collections.emptyList();
-	    searchResultsP = Collections.emptyList();
-	    
-	   
+
+		// Clear search results on every search attempt
+		searchResults = Collections.emptyList();
+		searchResultsP = Collections.emptyList();
+
 		if ("doctor".equals(searchType)) {
 			searchDoctors();
 			System.out.println("Doctor Search Results: " + searchResults);
@@ -1090,24 +1196,28 @@ public class DoctorController {
 		return null; // Stay on the same page
 
 	}
-	
-	 // Method to reset the fields when navigating back to the search page
-    public String goToSearchPage() {
-        resetSearchFields();  // Reset fields before navigating
-        return "Provider_Search_And_Inquiry?faces-redirect=true";  // Navigate back to search page
-    }
+
+	// Method to reset the fields when navigating back to the search page
+	public String goToSearchPage() {
+		resetSearchFields(); // Reset fields before navigating
+		return "Provider_Search_And_Inquiry?faces-redirect=true"; // Navigate back to search page
+	}
 
 	// Search method for doctors based on dynamic search criteria
 	/**
-	 * Searches for doctors based on the dynamic search criteria (e.g., Doctor ID, Name, Specialization, License Number).
+	 * Searches for doctors based on the dynamic search criteria (e.g., Doctor ID,
+	 * Name, Specialization, License Number).
 	 * 
-	 * This method first validates the input based on the selected search criteria. For each search criterion, 
-	 * appropriate validations are performed, such as checking the format of doctor ID, ensuring the doctor's name 
-	 * does not contain digits, and verifying the specialization against a predefined list. 
-	 * If the validation fails, an error message is displayed, and the search results are cleared.
-	 * After successful validation, the search is performed using the `doctorDao.searchDoctorDao()` method.
+	 * This method first validates the input based on the selected search criteria.
+	 * For each search criterion, appropriate validations are performed, such as
+	 * checking the format of doctor ID, ensuring the doctor's name does not contain
+	 * digits, and verifying the specialization against a predefined list. If the
+	 * validation fails, an error message is displayed, and the search results are
+	 * cleared. After successful validation, the search is performed using the
+	 * `doctorDao.searchDoctorDao()` method.
 	 * 
-	 * @return void This method does not return anything but updates the `searchResults` list with the search results.
+	 * @return void This method does not return anything but updates the
+	 *         `searchResults` list with the search results.
 	 */
 	public void searchDoctors() {
 		if (searchCriteria != null && !searchCriteria.isEmpty() && searchInput != null && !searchInput.isEmpty()) {
@@ -1230,15 +1340,19 @@ public class DoctorController {
 
 	// Search method for providers based on dynamic search criteria
 	/**
-	 * Searches for providers based on the dynamic search criteria (e.g., Provider ID, Name, City).
+	 * Searches for providers based on the dynamic search criteria (e.g., Provider
+	 * ID, Name, City).
 	 * 
-	 * This method validates the input based on the selected search criteria. For each search criterion, 
-	 * input validation is performed, such as checking if the provider ID follows the correct format, 
-	 * ensuring the provider's name is sufficiently long and does not contain digits, and so on. 
-	 * If any validation fails, an error message is displayed, and the search results are cleared.
-	 * After validation, the search is performed using the `doctorDao.searchProviderDao()` method.
+	 * This method validates the input based on the selected search criteria. For
+	 * each search criterion, input validation is performed, such as checking if the
+	 * provider ID follows the correct format, ensuring the provider's name is
+	 * sufficiently long and does not contain digits, and so on. If any validation
+	 * fails, an error message is displayed, and the search results are cleared.
+	 * After validation, the search is performed using the
+	 * `doctorDao.searchProviderDao()` method.
 	 * 
-	 * @return void This method does not return anything but updates the `searchResultsP` list with the search results.
+	 * @return void This method does not return anything but updates the
+	 *         `searchResultsP` list with the search results.
 	 */
 	private void searchProviders() {
 		if (searchCriteria != null && !searchCriteria.isEmpty() && searchInput != null && !searchInput.isEmpty()) {
@@ -1246,8 +1360,8 @@ public class DoctorController {
 			// Validate the input based on the selected search criteria
 			boolean isValid = true;
 			String errorMessage = "";
-	        // Normalize the input by trimming, converting to lowercase, and removing spaces
-	        String normalizedInput = searchInput.trim().toLowerCase().replaceAll("\\s+", "");
+			// Normalize the input by trimming, converting to lowercase, and removing spaces
+			String normalizedInput = searchInput.trim().toLowerCase().replaceAll("\\s+", "");
 			switch (searchCriteria) {
 			case "providerId":
 				// Provider ID must start with 'P' and have 3 numbers after it

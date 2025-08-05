@@ -32,8 +32,7 @@
                     <li><a href="adminLogin.jsp">Admin</a></li>
                     <li><a href="providerLogin.jsp">Provider</a></li>
                     <li><a href="recipientLogin.jsp">Recipient</a></li>
-                    <li><a href="pharmacyLogin.jsp">Pharmacy</a></li>
-                    <li><a href="doctorLogin.jsp">Doctor</a></li>
+                    <li><a href="/HealthSureClient/pharmacy/Login.jsf">Pharmacy</a></li>
                 </ul>
             </div>
 
@@ -41,11 +40,9 @@
             <div class="dropdown">
                 <button class="dropdown-button signup-btn">Signup ▾</button>
                 <ul class="dropdown-menu">
-                    <li><a href="adminSignup.jsp">Admin</a></li>
                     <li><a href="providerSignup.jsp">Provider</a></li>
                     <li><a href="recipientSignup.jsp">Recipient</a></li>
-                    <li><a href="pharmacySignup.jsp">Pharmacy</a></li>
-                    <li><a href="doctorSignup.jsp">Doctor</a></li>
+                    <li><a href="/HealthSureClient/pharmacy/AddOwner.jsf">Pharmacy</a></li>
                 </ul>
             </div>
         </div>
@@ -63,4 +60,6 @@
             navbar.classList.add("navbar-transparent");
         }
     });
+
+    
 </script>

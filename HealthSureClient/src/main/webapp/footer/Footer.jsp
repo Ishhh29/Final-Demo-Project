@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<link rel="stylesheet" href="/HealthSureClient/resources/css/footerStyle.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="/HealthSureClient/resources/css/footer.css" />
 
 <footer class="footer">
     <div class="footer-container">
@@ -16,23 +15,27 @@
         <div class="footer-links">
             <b>Quick Links</b>
             <ul>
-                <li><a href="Home.jsf">Home</a></li>
-                <li><a href="#aboutus">About Us</a></li>
-                <li><a href="login.jsf">Login</a></li>
-                <li><a href="signup.jsf">Sign Up</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="/HealthSureClient/home/Home.jsf">Home</a></li>
+                <li><a href="/HealthSureClient/home/Home.jsf#aboutus">About Us</a></li>
+                <li><a href="/HealthSureClient/home/Home.jsf#contact">Contact</a></li>
             </ul>
         </div>
-
-        <!-- Role-Based Menus -->
         <div class="footer-links">
-            <b>For Users</b>
+            <b>Login As</b>
             <ul>
-                <li><a href="providerDashboard.jsf">Providers</a></li>
-                <li><a href="recipientDashboard.jsf">Recipients</a></li>
-                <li><a href="insuranceHome.jsf">Insurance</a></li>
-                <li><a href="pharmacyHome.jsf">Pharmacy</a></li>
-                <li><a href="adminDashboard.jsf">Admin</a></li>
+                <li><a href="#">Provider</a></li>
+                <li><a href="#">Recipient</a></li>
+                <li><a href="/HealthSureClient/pharmacy/Login.jsf">Pharmacy</a></li>
+                <li><a href="#">Admin</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <b>Signup As</b>
+            <ul>
+                <li><a href="#">Provider</a></li>
+                <li><a href="#">Recipient</a></li>
+                <li><a href="/HealthSureClient/pharmacy/AddOwner.jsf">Pharmacy</a></li>
+                <li><a href="#">Admin</a></li>
             </ul>
         </div>
 
@@ -61,6 +64,6 @@
 
     <!-- Bottom Bar -->
     <div class="footer-bottom">
-        <p>&copy; 2025 HealthSure. All Rights Reserved.</p>
+        <p>&copy; 2025 HEALTHSURE( INFINITE COMPUTER SOLUTIONS ). All Rights Reserved.</p>
     </div>
 </footer>
