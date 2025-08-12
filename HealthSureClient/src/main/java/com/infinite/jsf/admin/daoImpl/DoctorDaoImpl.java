@@ -379,7 +379,7 @@ public class DoctorDaoImpl implements DoctorDao {
     
     
     /**
-     * Searches for doctors based on various search criteria.
+     * This method searches for doctors based on various search criteria.
      * 
      * This method allows for flexible search by any combination of the following fields:
      * - Doctor ID
@@ -401,7 +401,7 @@ public class DoctorDaoImpl implements DoctorDao {
         try {
             // Create a Criteria query
             Criteria criteria = session.createCriteria(Doctors.class);
-
+            
             // Apply filters based on the search criteria
             if (doctorId != null && !doctorId.isEmpty()) {
                 criteria.add(Restrictions.eq("doctorId", doctorId));

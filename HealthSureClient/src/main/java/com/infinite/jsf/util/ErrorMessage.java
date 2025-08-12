@@ -38,6 +38,8 @@ public class ErrorMessage {
     public static final String DOCTOR_NOT_FOUND_BY_ID = "Invalid Doctor ID. No Doctor Found With This ID";
     public static final String ERROR_UPDATE_PROVIDER = "Invalid Provider Name";
     public static final String INVALID_PROVIDER_NAME = "Invalid Provider Name. Must Contain Minimum 5 Letters.";
+    public static final String EMPTY_PROVIDERID = "Please Enter A Provider ID";
+    public static final String EMPTY_DOCTORID = "Please Enter A Doctor ID";
 
 
    

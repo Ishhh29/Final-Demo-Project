@@ -9,7 +9,7 @@
   - Footer: Contains copyright information and is fixed at the bottom of the page.
   
   Design:
-  - The page has a clean, minimalistic design with a light blue background color (#E0F7FA) and a centered form.
+  - The page has a clean, minimalistic design with a light blue background color and a centered form.
   - Form elements (input fields) have a light green background and rounded corners to align with the theme.
   - The Search button is styled with a hover effect, improving user interaction.
   - The footer is fixed at the bottom of the page, providing copyright information.
@@ -47,9 +47,12 @@ body {
 }
 
 .footer {
-	font-size: 14px;
-	color: #666;
-	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	bottom: 20px;
+	width: 100%;
 }
 
 h2 {
@@ -151,6 +154,7 @@ input[type="text"] {
 		</div>
 		
 		<div class="footer">
+		
 			<p>&copy; 2025 Infinite Computer Solution. All rights reserved.</p>
 		</div>
 		

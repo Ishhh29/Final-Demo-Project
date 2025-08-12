@@ -518,7 +518,9 @@ public class DoctorController {
 		return "Provider_Update_Search_Doctor";
 	}
 
-	// Methods For Provider Update Details -
+	
+	
+	// Methods For Provider Update Details -	
 	// Reset method for clearing form fields and error messages
 	public void resetFields() {
 		doctor.setDoctorId(null); // Reset the doctor ID input field
@@ -547,18 +549,21 @@ public class DoctorController {
 		if (doctor == null) {
 			doctor = new Doctors(); // Ensure the doctor object is not null
 		}
-
+		resetFields();
 		logger.info("Doctor ID reached showDoctorDetails() " + doctor.getDoctorId());
 		System.out.println("Doctor ID reached showDoctorDetails() " + doctor.getDoctorId()); // Debugging line
 		errorMessage = null;
 
 		// Step 1: Validate the doctorId format using a regex
-		if (!isValidDoctorId(doctor.getDoctorId())) {
+		String trimmedDoctorrId = doctor.getDoctorId().trim();
+
+		if (!isValidDoctorId(trimmedDoctorrId)) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Invalid doctor ID. Please enter a valid ID starting with 'D' followed by 3 digits.", ""));
 			return null; // Return to the same page to show the error
+			
 		}
-		try {
+			try {
 			System.out.println("Doctor Id  : " + doctor.getDoctorId());
 			logger.info("Doctor Id  : " + doctor.getDoctorId());
 
@@ -594,22 +599,39 @@ public class DoctorController {
 	 *         is not found.
 	 */
 	public String showProviderDetails() {
+		
 
+	   
 		// Initialize provider if it's null (for safety)
 		if (provider == null) {
-			provider = new Provider(); // Ensure the provider object is not null
-		}
+			provider = new Provider(); // Ensure the provider object is not null	        
 
+		}
+		
+	    
+	    
+		resetFields();
 		System.out.println("Provider ID reached showProviderDetails() " + provider.getProviderId()); // Debugging line
 		logger.info("Provider ID reached showProviderDetails() " + provider.getProviderId());
-
+		
+		
 		errorMessage = null;
-		// Step 1: Validate the providerId format using a regex
-		if (!isValidProviderId(provider.getProviderId())) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Invalid provider ID. Please enter a valid ID starting with 'P' followed by 3 digits.", ""));
-			return null; // Return to the same page to show the error
+		
+	    // Check if providerId is null or empty (including spaces)
+	    if (provider.getProviderId() == null || provider.getProviderId().trim().isEmpty()) {
+	        FacesContext.getCurrentInstance().addMessage(null,
+	            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter a value for the provider ID.", ""));
+	        errorMessage = ErrorMessage.EMPTY_PROVIDERID;
+	        return null; // Stay on the same page and don't proceed with the search
+	    }
+		// Step 1: Validate the providerId format using a regex, allowing leading or trailing spaces
+		String trimmedProviderId = provider.getProviderId().trim();
+		if (!isValidProviderId(trimmedProviderId)) {
+		    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+		            "Invalid provider ID. Please enter a valid ID starting with 'P' followed by 3 digits.", ""));
+		    return null; // Return to the same page to show the error
 		}
+
 
 		try {
 			System.out.println("Provider Id  : " + provider.getProviderId());
@@ -625,6 +647,7 @@ public class DoctorController {
 				provider = new Provider(); // Initialize provider object
 				return null;
 			}
+			
 		} catch (Exception e) {
 			logger.error("Error occurred while fetching provider details: " + e.getMessage());
 
@@ -835,7 +858,7 @@ public class DoctorController {
 
 	// Methods For Provider Review And Approval
 
-	//========== RAVIKANT TURI =============
+
 	private void sortList() {
 		
 		System.out.println("sorList method is called: "+ascending + " sortedfiled : "+sortField);
@@ -874,7 +897,7 @@ public class DoctorController {
 			// If this is a new field or the current order is not ascending, update sort
 			sortField = field;
 			ascending = true;
-			System.out.println("this i s acs");
+			System.out.println("this is ascending");
 
 		}
 		updatePaginatedProviders();
@@ -1082,7 +1105,9 @@ public class DoctorController {
 		int end = Math.min(start + pageSize, providerList.size());
 		paginatedProviders = providerList.subList(start, end);
 	}
-
+	
+	
+	
 	// Pagination logic to go to the next page
 	/**
 	 * Navigates to the next page of providers.
@@ -1100,7 +1125,8 @@ public class DoctorController {
 		}
 		return null; // No navigation needed, just update the view
 	}
-
+	
+	
 	/**
 	 * Loads the providers for the current page and updates the paginated list.
 	 * 
@@ -1166,6 +1192,26 @@ public class DoctorController {
 	 *         page or stays on the same page).
 	 */
 	public String search() {
+		
+
+	    // Validate if searchType is null or empty
+	    if (searchType == null || searchType.isEmpty()) {
+	        FacesContext.getCurrentInstance().addMessage(null,
+	            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please Select A Search Type.", null));
+	        return null; // Stay on the same page, don't proceed with search
+	    }
+	    // Validate if searchCriteria is null or empty
+	    if (searchCriteria == null || searchCriteria.isEmpty()) {
+	    	FacesContext.getCurrentInstance().addMessage(null,
+	    			new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please Select A Criteria.", null));
+	    	return null; // Stay on the same page, don't proceed with search
+	    }
+	    // Validate if searchInput is null or empty
+	    if (searchInput == null || searchInput.isEmpty()) {
+	    	FacesContext.getCurrentInstance().addMessage(null,
+	    			new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please Enter A Value", null));
+	    	return null; // Stay on the same page, don't proceed with search
+	    }
 
 		// Clear search results on every search attempt
 		searchResults = Collections.emptyList();
@@ -1188,6 +1234,7 @@ public class DoctorController {
 				&& (searchResults != null && !searchResults.isEmpty()
 						|| searchResultsP != null && !searchResultsP.isEmpty())) {
 			return "Provider_Search_And_Inquiry_Results?faces-redirect=true"; // Proceed to results page
+			//return "SearchResults_Testing?faces-redirect=true";
 		}
 
 		// Step 4: If no results found, stay on the same page and show appropriate
@@ -1220,6 +1267,7 @@ public class DoctorController {
 	 *         `searchResults` list with the search results.
 	 */
 	public void searchDoctors() {
+		
 		if (searchCriteria != null && !searchCriteria.isEmpty() && searchInput != null && !searchInput.isEmpty()) {
 
 			// Validate the input based on the selected search criteria
@@ -1417,5 +1465,59 @@ public class DoctorController {
 			searchResultsP = Collections.emptyList(); // Empty results if criteria or input is empty
 		}
 	}
+	
+	
 
+	
+	//sorting of searchtable 
+
+    // Perform the sorting of the doctor list
+    private void sortList1() {
+        if (sortField == null || searchResults == null) {
+            return;
+        }
+
+        System.out.println("Sorting method called: " + ascending + " Sorted Field: " + sortField);
+
+        // Sorting by the field dynamically
+        Collections.sort(searchResults, (e1, e2) -> {
+            try {
+                Field f = Doctors.class.getDeclaredField(sortField);  // Get the field by name
+                f.setAccessible(true);  // Make it accessible if it's private
+                Comparable v1 = (Comparable) f.get(e1);  // Get the value for e1
+                Comparable v2 = (Comparable) f.get(e2);  // Get the value for e2
+                return ascending ? v1.compareTo(v2) : v2.compareTo(v1); // Compare based on direction
+            } catch (Exception ex) {
+                ex.printStackTrace(); // Handle any potential exceptions
+                return 0;
+            }
+        });
+
+        // You can log the sorted list to verify
+        searchResults.forEach(System.out::println);
+    }
+
+    // Sort by Ascending order (e.g., doctorId)
+    public void sortByAsc1(String field) {
+        if (!field.equals(sortField) || !ascending) {
+            // If this is a new field or current order is not ascending, set ascending
+            sortField = field;
+            ascending = true;
+            System.out.println("Sorting Ascending by " + field);
+        }
+        sortList1();  // Apply the sorting
+    }
+
+    // Sort by Descending order (e.g., doctorId)
+    public void sortByDesc1(String field) {
+        if (!field.equals(sortField) || ascending) {
+            // If this is a new field or current order is not descending, set descending
+            sortField = field;
+            ascending = false;
+            System.out.println("Sorting Descending by " + field);
+        }
+        sortList1();  // Apply the sorting
+    }
 }
+
+//}

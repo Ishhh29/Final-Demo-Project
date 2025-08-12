@@ -91,6 +91,10 @@ input[type="text"] {
 .update-btn:hover {
 	background-color: #004D40;
 }
+.error-message {
+    color: red;
+    font-weight: bold;
+}
 
 .success {
 	color: green;
@@ -137,9 +141,13 @@ input[type="text"] {
 }
 
 .footer {
-	font-size: 14px;
-	color: #666;
-	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	bottom: 20px;
+	width: 100%;
+	margin-top:30px;
 }
 </style>
 </head>
@@ -185,7 +193,7 @@ input[type="text"] {
 				<!-- Update Button -->
 				<h:commandButton value="Update Details"
 					action="#{doctorController.updateProviderDetails}"
-					styleClass="update-btn" />
+					styleClass="update-btn" style="margin-top:20px" />
 
 
 				<!-- Success or error message -->
@@ -196,6 +204,7 @@ input[type="text"] {
 					styleClass="error" />
 
 				<h:form>
+				<div>
 					<!-- Back Button -->
 					<h:commandButton value="Back"
 						action="#{doctorController.backtoupdateprovidersearch}"
@@ -204,8 +213,10 @@ input[type="text"] {
 
 					<h:commandButton value="Back to Homepage"
 						action="#{doctorController.backtoadmindashboard}"
-						styleClass="action-button" style="margin-top: 20px;" />
+						styleClass="action-button" style="margin-top: 20px; margin-left:10px;" />
+				</div>
 				</h:form>
+				
 				<div class="footer">
 					<p>&copy; 2025 Infinite Computer Solution. All rights reserved.</p>
 				</div>

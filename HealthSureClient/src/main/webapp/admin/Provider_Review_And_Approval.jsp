@@ -1,3 +1,23 @@
+<!-- 
+  JSP File: Provider Review Table
+  Purpose: This page is designed for the review and validation of providers. Administrators can view a table of providers, including their details such as ID, name, email, hospital, and status. The page allows sorting of columns and validating providers by changing their status.
+
+  Key Features:
+  - Provider Table: Displays a paginated table with provider details such as ID, name, email, hospital name, phone number, address, city, and zipcode.
+  - Sorting: Users can sort the provider data in ascending or descending order by clicking on the header icons.
+  - Validation: Administrators can validate providers, changing their status to "APPROVED" or "REJECTED". Validated providers cannot be re-validated.
+  - Pagination: The table supports pagination for navigation across large sets of provider data.
+  - Message Box: Displays validation messages or notifications to the user.
+
+  Layout:
+  - The page is styled with soft pastel green for a clean and calming user interface.
+  - The table and buttons are designed to be responsive and modern with hover and active states for better interactivity.
+
+  Design Notes:
+  - The page includes a dynamic table and integrates sorting features.
+  - A custom loader and message box are displayed for better user experience during validation.
+  - Buttons are styled with gradient effects and different states (default, disabled, validated).
+-->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -58,7 +78,7 @@ th {
 td {
 	background-color: #F1F8F6;
 	color: #333;
-	text-align:center;
+	text-align: center;
 }
 
 .action-button {
@@ -93,6 +113,7 @@ td {
 h2 {
 	text-align: center;
 	color: #00796B;
+	margin-top: 40px;
 }
 
 #loader {
@@ -163,9 +184,9 @@ input[type="text"] {
 	margin-top: 20px;
 	text-align: center;
 }
-/* Styling for Disabled Buttons */
 .disabled-button {
-	background-color: #B2DFDB !important; /* Lighter background */
+	background-color: #B2DFDB !important;
+	/* Lighter background similar to disabled */
 	color: black;
 	cursor: not-allowed !important;
 	/* Change cursor to indicate it's not clickable */
@@ -408,11 +429,11 @@ input[type="text"] {
 						<h:outputLabel value="Validation" />
 					</f:facet>
 					<h:commandButton
-						value="#{provider.status eq 'APPROVED' ? 'Validated' : 'Validate'}"
+						value="#{(provider.status eq 'APPROVED' or provider.status eq 'REJECTED') ? 'Validated' : 'Validate'}"
 						action="#{doctorController.validateProvider(provider)}"
 						disabled="#{provider.status eq 'APPROVED' or provider.status eq 'REJECTED' or doctorController.validatedProviders[provider.providerId]}"
 						onclick="showLoader()"
-						styleClass="action-button #{provider.status eq 'APPROVED' ? 'validated-button' : ''}" />
+						styleClass="action-button #{(provider.status eq 'APPROVED' or provider.status eq 'REJECTED') ? 'validated-button' : ''}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">
@@ -463,11 +484,9 @@ input[type="text"] {
 			<div class="footer">
 				<p>&copy; 2025 Infinite Computer Solution. All rights reserved.</p>
 			</div>
-
 		</h:form>
 
 	</div>
-
 </body>
 	</html>
 </f:view>
